@@ -40,8 +40,16 @@ namespace EXAM
                         break;
                     case 3:
                         Console.WriteLine("Delete productby Id");
-                        mn.DeleteSP();
-                        Console.WriteLine("successful delete!");
+                        int del = Convert.ToInt32(Console.ReadLine());
+                        foreach(Product product in mn.getListSP())
+                        {
+                            if(product.ID == del)
+                            {
+                                mn.getListSP().Remove(product);
+                                Console.WriteLine("successful delete!");
+                            }
+                        }
+                        Console.WriteLine("not ID in List!");
                         break;
                     case 4:
                         Console.WriteLine("Exit!");
