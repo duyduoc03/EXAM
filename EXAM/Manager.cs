@@ -9,7 +9,6 @@ namespace EXAM
     internal class Manager
     {
         private List<Product> Listsp = null;
-        Product sp = new Product();
 
         public Manager()
         {
@@ -28,6 +27,7 @@ namespace EXAM
 
         public void EnterSP()
         {
+            Product sp = new Product();
             Console.Write("Enter ID: ");
             sp.ID = Convert.ToString(Console.ReadLine());
 
@@ -55,11 +55,34 @@ namespace EXAM
             Console.WriteLine();
         }
 
-        public void DeleteSP()
+        public bool DeleteSP(string ID)
         {
-            Console.WriteLine(" Delete Id");
-            sp.ID = Convert.ToString(Console.ReadLine());
-            Listsp.Remove(sp);
+            bool IsDeleted = false;
+            Product sv = FindByID(ID);
+            if (sv != null)
+            {
+                IsDeleted = Listsp.Remove(sv);
+            }
+            else
+            {
+                Console.WriteLine("Product ID with = {0} does not exist.", ID);
+            }
+            return IsDeleted;
+        }
+        public Product FindByID(string ID)
+        {
+            Product searchResult = null;
+            if (Listsp != null && Listsp.Count > 0)
+            {
+                foreach (Product p in Listsp)
+                {
+                    if (p.ID == ID)
+                    {
+                        searchResult = p;
+                    }
+                }
+            }
+            return searchResult;
         }
         public List<Product> getListSP()
         {

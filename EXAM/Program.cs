@@ -10,6 +10,7 @@ namespace EXAM
     {
         static void Main(string[] args)
         {
+            Manager mn = new Manager();
             while (true)
             {
                 Console.WriteLine("\tMENU");
@@ -19,7 +20,6 @@ namespace EXAM
                 Console.WriteLine("4.Exit.");
                 Console.WriteLine("Choose a number from 1 to 4");
                 int key = Convert.ToInt32(Console.ReadLine());
-                Manager mn = new Manager();
                 switch (key)
                 {
                     case 1:
@@ -39,17 +39,21 @@ namespace EXAM
                         }
                         break;
                     case 3:
-                        Console.WriteLine("Delete productby Id");
-                        int del = Convert.ToInt32(Console.ReadLine());
-                        foreach(Product product in mn.getListSP())
+                        if (mn.QuantitySP() > 0)
                         {
-                            if(product.ID == del)
+                            string ID;
+                            Console.WriteLine("\n3. Delete product by ID.");
+                            Console.Write("\nInput ID to delete: ");
+                            ID = Console.ReadLine();
+                            if (mn.DeleteSP(ID))
                             {
-                                mn.getListSP().Remove(product);
-                                Console.WriteLine("successful delete!");
+                                Console.WriteLine("\nProduct ID with = {0} has been removed!", ID);
                             }
                         }
-                        Console.WriteLine("not ID in List!");
+                        else
+                        {
+                            Console.WriteLine("\nThere are no products in the list.");
+                        }
                         break;
                     case 4:
                         Console.WriteLine("Exit!");
